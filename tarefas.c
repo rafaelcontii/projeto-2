@@ -157,6 +157,28 @@ ERROS Arquivo(Tarefa tarefas[], int *pos, char *nomeArquivo,
 
   return erro;
 }
+
+
+
+ERROS binario(Tarefa tarefas[], int *pos) {
+  char nomeArquivo[100];
+  printf("Digite o nome do arquivo que deseja exportar as tarefas: ");
+  scanf("%s", nomeArquivo);
+
+  FILE *arquivo = fopen(nomeArquivo, "w");
+  if (arquivo == NULL) {
+    return ABRIR;
+  }
+
+  for (int i = 0; i < *pos; i++) {
+    fprintf(arquivo, "Prioridade: %d\tCategoria: %s\tDescricao: %s\n",
+            tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].descricao);
+  }
+
+  fclose(arquivo);
+  return OK;
+}
+
 void clearBuffer(){
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
