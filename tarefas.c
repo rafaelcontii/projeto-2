@@ -21,6 +21,7 @@ printf("Digite a categoria desejada : ");
 
   return OK;
 }
+
 ERROS deletar(Tarefa tarefas[], int *pos){
     // teste se existem tarefas
     if(*pos == 0)
