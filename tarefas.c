@@ -18,6 +18,9 @@ ERROS criar(Tarefa tarefas[], int *pos) {
 
   tarefas[*pos].prioridade = prioridade;
 
+printf("Digite a categoria desejada : ");
+  fgets(tarefas[*pos].categoria, CHAR_CATEGORIA, stdin);
+  tarefas[*pos].categoria[strcspn(tarefas[*pos].categoria, "\n")] = '\0';
 
 
   printf("Digite a descricao desejada: ");
