@@ -125,7 +125,38 @@ ERROS carregar(Tarefa tarefas[], int *pos){
     return OK;
 
 }
+ERROS Arquivo(Tarefa tarefas[], int *pos, char *nomeArquivo,
+                       int operacao) {
+  FILE *f;
+  ERROS erro = OK;
 
+  if (operacao == 1) {
+    f = fopen(nomeArquivo, "wb");
+    if (f == NULL)
+      return ABRIR;
+
+    int qtd = fwrite(tarefas, *pos, sizeof(Tarefa), f);
+    if (qtd == 0)
+      erro = ESCREVER;
+  } else if (operacao == 2) {
+    f = fopen(nomeArquivo, "rb");
+    if (f == NULL)
+      return ABRIR;
+
+    int qtd = fread(tarefas, TOTAL, sizeof(Tarefa), f);
+    if (qtd == 0)
+      erro = LER;
+
+    *pos = qtd / sizeof(Tarefa);
+  } else {
+    return OPERACAO_INVALIDA;
+  }
+
+  if (fclose(f))
+    return FECHAR;
+
+  return erro;
+}
 void clearBuffer(){
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
